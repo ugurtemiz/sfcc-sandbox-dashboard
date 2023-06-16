@@ -1,4 +1,4 @@
-import { OCAPIToken } from '../types';
+import { OCAPIToken } from '@/types';
 import { redis } from './redis';
 const {
   auth: { auth },

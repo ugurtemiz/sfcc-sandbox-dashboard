@@ -1,4 +1,4 @@
-import { db } from '../src/utils/db';
+import { db } from '@/lib/db';
 
 export async function createTables() {
   console.log('start');
