@@ -1,7 +1,7 @@
-import { OCAPIToken, UsageData } from '../src/types';
-import { getTokenForSeed } from '../src/utils/token';
-import { config } from '../config';
-import { db } from '../src/utils/db';
+import { OCAPIToken, UsageData } from '@/types';
+import { getTokenForSeed } from '@/lib/token';
+import { config } from '@/config/sandbox';
+import { db } from '@/lib/db';
 
 
 async function buildParams(data : UsageData, date: string) {
@@ -58,8 +58,8 @@ async function getUsage(tokenObj : OCAPIToken, from : string, to : string) {
 
   const params = await buildParams(data, from);
   console.log(params);
-  const result = await db.execute(params.query, params.value);
-  console.log(result);
+  // const result = await db.execute(params.query, params.value);
+  // console.log(result);
 }
 
 function getDateString(date : Date){
