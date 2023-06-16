@@ -42,7 +42,7 @@ async function getUsage(tokenObj : OCAPIToken, from : string, to : string) {
     return;
   }
   
-  const url = `${config.base_url}/${config.realm.id}/usage?from=${from}&to=${to}`;
+  const url = `${config.base_url}/realms/${config.realm.id}/usage?from=${from}&to=${to}`;
 
   const response = await fetch(url, {
     headers: {
