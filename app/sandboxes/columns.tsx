@@ -1,9 +1,10 @@
 "use client"
-
+import Link from "next/link"
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
  
 import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge" 
 import { Checkbox } from "@/components/ui/checkbox"
 import {
   DropdownMenu,
@@ -37,6 +38,12 @@ export const columns = [
   {
     accessorKey: "state",
     header: "State",
+    cell: ({ row }) => {
+      if (row.getValue("state") === 'stopped') {
+        return <Badge variant='destructive'>stopped</Badge>
+      }
+      return <Badge>{row.getValue("state")}</Badge>
+    },
   },
   {
     accessorKey: "instance",
@@ -54,7 +61,13 @@ export const columns = [
   },
   {
     accessorKey: "autoScheduled",
-    header: "Auto Scheduled"
+    header: "Auto Scheduled",
+    cell: ({ row }) => {
+      if (row.getValue("autoScheduled")) {
+        return <Badge>true</Badge>
+      }
+      return <Badge variant="outline">false</Badge>
+    },
   },
   {
     accessorKey: "resourceProfile",
@@ -62,6 +75,11 @@ export const columns = [
   },
   {
     accessorKey: "bmLink",
-    header: "BM Link"
+    header: "BM Link",
+    cell: ({ row }) => {
+    return <Button variant="outline" asChild>
+      <Link href={row.getValue('bmLink')} rel="noopener noreferrer" target="_blank">BM Link</Link>
+    </Button>
+    },
   },
 ]
