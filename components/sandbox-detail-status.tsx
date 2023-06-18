@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { CalendarCheck, Pause, ChevronDown } from "lucide-react"
+import { CalendarCheck, Pause, ChevronDown, ExternalLink } from "lucide-react"
 
 import { Label } from "@/components/ui/label"
 import { Switch } from "@/components/ui/switch"
@@ -36,6 +36,7 @@ export default function DetailStatus( { data } ) {
         </div>
         <div className="flex items-center space-x-1 rounded-md bg-secondary text-secondary-foreground">
           <Button variant="secondary" className="px-3">
+            <ExternalLink className="mr-2 h-4 w-4" />
             Links
           </Button>
           <Separator orientation="vertical" className="h-[20px]" />
