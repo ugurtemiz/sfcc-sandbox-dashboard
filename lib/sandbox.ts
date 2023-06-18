@@ -1,6 +1,6 @@
 import { config } from '@/config/sandbox';
 
-export class OCAPI {
+export class SandboxAPI {
   token: string;
   base_url: string;
 
@@ -13,6 +13,22 @@ export class OCAPI {
 
   async getSandboxes() {
     const url = `${this.base_url}/sandboxes`;
+
+    const response = await fetch(url, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this.token}`,
+      },
+    });
+
+    const { data: data } = await response.json();
+    
+
+    return data;
+  }
+  
+  async getSandboxDetail(id) {
+    const url = `${this.base_url}/sandboxes/${id}`;
 
     const response = await fetch(url, {
       headers: {

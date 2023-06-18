@@ -58,6 +58,14 @@ export const columns = [
         </Button>
       )
     },
+    cell: ({ row }) => {
+      const instanceValue = row.getValue("instance");
+      const instanceID = row.original.id;
+
+      return <Link href={`sandboxes/${instanceID}`}>
+        {instanceValue}
+      </Link>
+    },
   },
   {
     accessorKey: "autoScheduled",
