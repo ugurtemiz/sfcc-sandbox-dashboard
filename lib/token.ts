@@ -27,11 +27,11 @@ const authWithSFCC = () => {
 
 export async function getToken() {
   let tokenObj: OCAPIToken = await redis.get(KEY);
-  console.log('tokenObj', tokenObj);
+  // console.log('tokenObj', tokenObj);
 
   if (
     tokenObj == null ||
-    (tokenObj?.expire && Date.now() - tokenObj.expire > 1000 * 60)
+    (tokenObj?.expire && Date.now() - tokenObj.expire > 1000 * 60 * 10)
   ) {
     const token = await authWithSFCC();
 

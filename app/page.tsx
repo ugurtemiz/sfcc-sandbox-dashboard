@@ -7,7 +7,7 @@ import ChartView from '@/components/chart-view'
 import { db } from '@/lib/db';
 
 async function getData() {
-  const result = await db.execute('SELECT * FROM daily_usage ORDER BY DATE ASC;');
+  const result = await db.execute('SELECT date, minutesUp FROM daily_usage ORDER BY DATE ASC;');
 
   return result.rows;
 }
