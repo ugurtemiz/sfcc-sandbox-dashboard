@@ -75,18 +75,15 @@ export async function seed() {
 
   const lastDate = new Date(from);
   let currentDate = new Date(to);
-  let previousDate = new Date(to);
 
   while(true){
-    if (lastDate > previousDate) {
+    if (lastDate > currentDate) {
       break;
     }
 
-    previousDate.setDate(currentDate.getDate() - 1);
-
     await getUsage(
       tokenObj,
-      getDateString(previousDate),
+      getDateString(currentDate),
       getDateString(currentDate)
     );
 

@@ -6,7 +6,7 @@ export async function createTables() {
   const results = await db.execute(
     'CREATE TABLE daily_usage (' +
       'id INT AUTO_INCREMENT PRIMARY KEY,' +
-      'date DATE NOT NULL,' +
+      'date DATE NOT NULL UNIQUE,' +
       'createdSandboxes int NOT NULL,' +
       'activeSandboxes int NOT NULL,' +
       'deletedSandboxes int NOT NULL,' +
