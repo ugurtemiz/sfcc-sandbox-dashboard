@@ -1,3 +1,18 @@
 {
-    "git.ignoreLimitWarning": true
+  "git.ignoreLimitWarning": true,
+  "editor.rulers": [80],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  // TODO: Check it what is about?
+  // "typescript.tsdk": "node_modules/typescript/lib",
+  "cSpell.words": [
+    "SFCC",
+    "OCAPI",
+    "OCAPIURL",
+    "upstash",
+    "packagejson",
+    "lucide",
+    "planetscale",
+    "clsx"
+  ]
 }

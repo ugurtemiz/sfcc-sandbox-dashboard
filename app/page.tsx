@@ -1,19 +1,20 @@
-import Link from "next/link"
+import Link from 'next/link'
 
-import { siteConfig } from "@/config/site"
-import { buttonVariants } from "@/components/ui/button"
+import { siteConfig } from '@/config/site'
+import { db } from '@/lib/db'
+import { buttonVariants } from '@/components/ui/button'
 import ChartView from '@/components/chart-view'
 
-import { db } from '@/lib/db';
-
 async function getData() {
-  const result = await db.execute('SELECT date, minutesUp FROM daily_usage ORDER BY DATE ASC;');
+  const result = await db.execute(
+    'SELECT date, minutesUp FROM daily_usage ORDER BY DATE ASC;'
+  )
 
-  return result.rows;
+  return result.rows
 }
 
 export default async function IndexPage() {
-  const data = await getData();
+  const data = await getData()
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
       <div className="flex max-w-[980px] flex-col items-start gap-2">
@@ -39,12 +40,12 @@ export default async function IndexPage() {
           target="_blank"
           rel="noreferrer"
           href={siteConfig.links.github}
-          className={buttonVariants({ variant: "outline" })}
+          className={buttonVariants({ variant: 'outline' })}
         >
           GitHub
         </Link>
       </div>
-      <ChartView data={data}/>
+      <ChartView data={data} />
     </section>
   )
 }
