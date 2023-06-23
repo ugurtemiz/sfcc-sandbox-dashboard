@@ -6,8 +6,6 @@ import { getToken } from '@/lib/token'
 import { columns } from './columns'
 import { DataTable } from './data-table'
 
-export const revalidate = 0 // disable cache
-
 async function getData() {
   const tokenObj: OCAPIToken = await getToken()
 

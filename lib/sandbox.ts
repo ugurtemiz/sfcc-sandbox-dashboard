@@ -4,6 +4,12 @@ import {
   SandboxDetailResponse,
   SandboxDetailResponseData,
   SandboxListResponse,
+  SandboxOperationsResponse,
+  SandboxOperationsResponseData,
+  SandboxStorageResponse,
+  SandboxStorageResponseData,
+  SandboxUsageResponse,
+  SandboxUsageResponseData,
 } from '@/types/sandbox'
 import { config } from '@/config/sandbox'
 
@@ -39,6 +45,13 @@ export class SandboxAPI {
     return data
   }
 
+  async getSandboxUsage(id: string): Promise<SandboxUsageResponseData> {
+    const url = `${this.base_url}/sandboxes/${id}/usage`
+    const response = await fetch(url, this.getHeader())
+    const { data: data }: SandboxUsageResponse = await response.json()
+    return data
+  }
+
   async getRealmUsage(
     from: string,
     to: string
@@ -50,5 +63,19 @@ export class SandboxAPI {
     const { data: data }: RealmUsageResponse = await response.json()
     console.log(data)
     return data
+  }
+
+  async getSandboxStorage(id: string): Promise<SandboxStorageResponseData> {
+    const url = `${this.base_url}/sandboxes/${id}/storage`
+    const response = await fetch(url, this.getHeader())
+    const { data: data }: SandboxStorageResponse = await response.json()
+    return data
+  }
+
+  async getSandboxOperations(id: string): Promise<SandboxOperationsResponse> {
+    const url = `${this.base_url}/sandboxes/${id}/operations`
+    const response = await fetch(url, this.getHeader())
+    const res: SandboxOperationsResponse = await response.json()
+    return res
   }
 }

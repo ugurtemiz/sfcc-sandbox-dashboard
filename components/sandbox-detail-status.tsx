@@ -1,38 +1,46 @@
-import Link from "next/link"
-import { CalendarCheck, Pause, ChevronDown, ExternalLink } from "lucide-react"
+import Link from 'next/link'
+import { CalendarCheck, ChevronDown, ExternalLink, Pause } from 'lucide-react'
 
-import { Label } from "@/components/ui/label"
-import { Switch } from "@/components/ui/switch"
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
-
+import { SandboxDetailResponseData } from '@/types/sandbox'
+import { Button } from '@/components/ui/button'
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-
+} from '@/components/ui/card'
 import {
-    DropdownMenu,
-    DropdownMenuCheckboxItem,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu"
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { Label } from '@/components/ui/label'
+import { Separator } from '@/components/ui/separator'
+import { Switch } from '@/components/ui/switch'
 
-export default function DetailStatus( { data } ) {
+import { Badge } from './ui/badge'
+
+export default function DetailStatus({
+  data,
+}: {
+  data: SandboxDetailResponseData
+}) {
   return (
     <Card className="max-w-[50%]">
       <CardHeader className="grid grid-cols-[1fr_110px] items-start gap-4 space-y-0">
-      <div className="space-y-1">
-        <CardTitle>{data.realm.toUpperCase()}</CardTitle>
-        <CardDescription>
-          {data.instance}
-        </CardDescription>
+        <div className="space-y-1">
+          <CardTitle>
+            {data.realm.toUpperCase()}
+            <Badge variant="secondary" className="mx-4">
+              {data.resourceProfile}
+            </Badge>
+          </CardTitle>
+          <CardDescription>{data.instance}</CardDescription>
         </div>
         <div className="flex items-center space-x-1 rounded-md bg-secondary text-secondary-foreground">
           <Button variant="secondary" className="px-3">
@@ -54,15 +62,39 @@ export default function DetailStatus( { data } ) {
             >
               <DropdownMenuLabel>Sandbox Links</DropdownMenuLabel>
               <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                    <span><Link href={data.links.bm} rel="noopener noreferrer" target="_blank">Business Manager</Link></span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                    <span><Link href={data.links.impex} rel="noopener noreferrer" target="_blank">Impex</Link></span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                    <span><Link href={data.links.logs} rel="noopener noreferrer" target="_blank">Logs</Link></span>
-                </DropdownMenuItem>
+              <DropdownMenuItem>
+                <span>
+                  <Link
+                    href={data.links.bm}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Business Manager
+                  </Link>
+                </span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <span>
+                  <Link
+                    href={data.links.impex}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Impex
+                  </Link>
+                </span>
+              </DropdownMenuItem>
+              <DropdownMenuItem>
+                <span>
+                  <Link
+                    href={data.links.logs}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    Logs
+                  </Link>
+                </span>
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
@@ -77,26 +109,29 @@ export default function DetailStatus( { data } ) {
             </span>
           </Label>
           <Switch
-          id="state"
-            checked={data.state == 'started' ? true : false }
+            id="state"
+            checked={data.state == 'started' ? true : false}
             disabled
             aria-readonly
-            />
+          />
         </div>
         <div className="flex items-center space-x-4 rounded-md p-2  hover:bg-accent hover:text-accent-foreground">
           <CalendarCheck className="h-5 w-5" />
-          <Label htmlFor="autoScheduled" className="flex grow flex-col space-y-1">
+          <Label
+            htmlFor="autoScheduled"
+            className="flex grow flex-col space-y-1"
+          >
             <span>Auto Scheduled</span>
             <span className="font-normal leading-snug text-muted-foreground">
               Auto Scheduled for being cost effective
             </span>
           </Label>
           <Switch
-          id="autoScheduled"
+            id="autoScheduled"
             checked={data.autoScheduled}
             disabled
             aria-readonly
-            />
+          />
         </div>
       </CardContent>
     </Card>
