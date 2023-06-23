@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { OCAPIToken } from '@/types'
 
+import { SandboxDetailResponseData } from '@/types/sandbox'
 import { SandboxAPI } from '@/lib/sandbox'
 import { getToken } from '@/lib/token'
 import DetailStatus from '@/components/sandbox-detail-status'
@@ -26,12 +27,12 @@ Detail
 Usage
 - Graph
 Storage
-- Share data => Space total, space used, percentege used
-- Realm data => Space total, space used, percentege used
+- Share data => Space total, space used, percentage used
+- Realm data => Space total, space used, percentage used
 Operation
 - Operation List Table
 */
-async function getData(id: string) {
+async function getData(id: string): Promise<SandboxDetailResponseData | null> {
   const tokenObj: OCAPIToken = await getToken()
 
   if (!tokenObj) {
@@ -39,7 +40,8 @@ async function getData(id: string) {
   }
 
   const sandboxObj = new SandboxAPI(tokenObj.key)
-  const sandboxes = await sandboxObj.getSandboxDetail(id)
+  const sandboxes: SandboxDetailResponseData =
+    await sandboxObj.getSandboxDetail(id)
   return sandboxes
 }
 

@@ -1,28 +1,16 @@
-import { OCAPIToken, UsageData } from '@/types'
+import { OCAPIToken } from '@/types'
 
+import { RealmUsageResponseData } from '@/types/sandbox'
 import { config } from '@/config/sandbox'
 import { db } from '@/lib/db'
+import { SandboxAPI } from '@/lib/sandbox'
 import { getTokenForSeed } from '@/lib/token'
 
-async function buildParams(
-  data: UsageData,
-  date: string
-): { query: string; value: [] } {
-  const {
-    id,
-    createdSandboxes,
-    activeSandboxes,
-    deletedSandboxes,
-    sandboxSeconds,
-    minutesUpByProfile,
-    ...otherProps
-  } = data
+async function buildParams(data: RealmUsageResponseData, date: string) {
+  const { id, minutesUpByProfile, ...otherProps } = data
+
   const obj = {
     date,
-    createdSandboxes,
-    activeSandboxes,
-    deletedSandboxes,
-    sandboxSeconds,
     minutesUpByProfile: JSON.stringify(minutesUpByProfile),
     ...otherProps,
   }
@@ -45,20 +33,13 @@ async function getUsage(tokenObj: OCAPIToken, from: string, to: string) {
     return
   }
 
-  const url = `${config.base_url}/realms/${config.realm.id}/usage?from=${from}&to=${to}`
+  const sandboxAPI = new SandboxAPI(tokenObj.key)
+  const usageData: RealmUsageResponseData = await sandboxAPI.getRealmUsage(
+    from,
+    to
+  )
 
-  const response = await fetch(url, {
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${tokenObj.key}`,
-    },
-  })
-
-  const res = await response.json()
-  console.log(res)
-  const { data: data } = res
-
-  const params = await buildParams(data, from)
+  const params = await buildParams(usageData, from)
   console.log(params)
   const result = await db.execute(params.query, params.value)
   console.log(result)

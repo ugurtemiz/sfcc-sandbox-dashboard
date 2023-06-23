@@ -1,3 +1,5 @@
+import 'dotenv/config'
+
 export type ProjectConfig = typeof config
 
 export const config = {
@@ -6,7 +8,7 @@ export const config = {
     id: process.env.REALM_ID,
   },
   seed: {
-    from: '2023-01-01',
-    to: '2023-02-01',
+    from: '2023-06-22',
+    to: '2023-06-22',
   },
 }

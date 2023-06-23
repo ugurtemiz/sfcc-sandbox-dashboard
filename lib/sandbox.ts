@@ -1,3 +1,10 @@
+import {
+  RealmUsageResponse,
+  RealmUsageResponseData,
+  SandboxDetailResponse,
+  SandboxDetailResponseData,
+  SandboxListResponse,
+} from '@/types/sandbox'
 import { config } from '@/config/sandbox'
 
 export class SandboxAPI {
@@ -9,33 +16,37 @@ export class SandboxAPI {
     this.base_url = config.base_url
   }
 
-  async getSandboxes() {
-    const url = `${this.base_url}/sandboxes`
-
-    const response = await fetch(url, {
+  private getHeader(): Object {
+    return {
       headers: {
-        'Content-Type': 'application/json',
+        'Content-type': 'application/json',
         Authorization: `Bearer ${this.token}`,
       },
-    })
+    }
+  }
 
-    const { data: data } = await response.json()
-
+  async getSandboxes(): Promise<SandboxDetailResponseData[]> {
+    const url = `${this.base_url}/sandboxes`
+    const response = await fetch(url, this.getHeader())
+    const { data: data }: SandboxListResponse = await response.json()
     return data
   }
 
-  async getSandboxDetail(id) {
+  async getSandboxDetail(id: string): Promise<SandboxDetailResponseData> {
     const url = `${this.base_url}/sandboxes/${id}`
+    const response = await fetch(url, this.getHeader())
+    const { data: data }: SandboxDetailResponse = await response.json()
+    return data
+  }
 
-    const response = await fetch(url, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.token}`,
-      },
-    })
-
-    const { data: data } = await response.json()
-
+  async getRealmUsage(
+    from: string,
+    to: string
+  ): Promise<RealmUsageResponseData> {
+    const url = `${config.base_url}/realms/${config.realm.id}/usage?from=${from}&to=${to}`
+    const response = await fetch(url, this.getHeader())
+    const { data: data }: RealmUsageResponse = await response.json()
+    console.log(data)
     return data
   }
 }
