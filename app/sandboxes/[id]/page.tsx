@@ -1,10 +1,11 @@
-import { notFound } from "next/navigation"
-import { SandboxAPI } from '@/lib/sandbox'
-import { OCAPIToken } from "@/types"
-import { getToken } from '@/lib/token';
-import DetailStatus from "@/components/sandbox-detail-status";
+import { notFound } from 'next/navigation'
+import { OCAPIToken } from '@/types'
 
-export const revalidate = 0; // disable cache
+import { SandboxAPI } from '@/lib/sandbox'
+import { getToken } from '@/lib/token'
+import DetailStatus from '@/components/sandbox-detail-status'
+
+export const revalidate = 0 // disable cache
 
 interface PageProps {
   params: {
@@ -13,7 +14,7 @@ interface PageProps {
 }
 /*
 Detail
-- Realm => aagi
+- Realm => abcd
 - Instance => 003
 - State => stopped, started
 - autoScheduled => true
@@ -21,7 +22,7 @@ Detail
 
 - Resource Profile => Medium
 - Versions => app , web
-- Hostname => aagi-003.dx.commercecloud.salesforce.com
+- Hostname => abcd-003.dx.commercecloud.salesforce.com
 Usage
 - Graph
 Storage
@@ -30,20 +31,20 @@ Storage
 Operation
 - Operation List Table
 */
-async function getData(id : string) {
-  const tokenObj : OCAPIToken = await getToken();
-  
+async function getData(id: string) {
+  const tokenObj: OCAPIToken = await getToken()
+
   if (!tokenObj) {
-    return null;
+    return null
   }
-  
-  const sandboxObj  = new SandboxAPI(tokenObj.key);
-  const sandboxes = await sandboxObj.getSandboxDetail(id);
+
+  const sandboxObj = new SandboxAPI(tokenObj.key)
+  const sandboxes = await sandboxObj.getSandboxDetail(id)
   return sandboxes
 }
 
 export default async function PagePage({ params }: PageProps) {
-  const page = await getData(params.id);
+  const page = await getData(params.id)
 
   if (!page) {
     notFound()
@@ -52,10 +53,8 @@ export default async function PagePage({ params }: PageProps) {
   return (
     <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
       <div className="container mx-auto py-10">
-        <DetailStatus data={page}/>
-        <pre>
-          {JSON.stringify(page, null,2)}
-        </pre>
+        <DetailStatus data={page} />
+        <pre>{JSON.stringify(page, null, 2)}</pre>
       </div>
     </section>
   )
