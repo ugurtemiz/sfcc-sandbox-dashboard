@@ -43,7 +43,9 @@ export class SandboxAPI {
     from: string,
     to: string
   ): Promise<RealmUsageResponseData> {
-    const url = `${config.base_url}/realms/${config.realm.id}/usage?from=${from}&to=${to}`
+    const url =
+      `${config.base_url}/realms/` +
+      `${config.realm.id}/usage?from=${from}&to=${to}`
     const response = await fetch(url, this.getHeader())
     const { data: data }: RealmUsageResponse = await response.json()
     console.log(data)
