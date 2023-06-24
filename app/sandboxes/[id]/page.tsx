@@ -91,10 +91,18 @@ async function getOperationsData(
 }
 
 export default async function SandboxDetailPage({ params }: PageProps) {
-  const page = await getDetailData(params.id)
-  const usage = await getUsageData(params.id)
-  const storage = await getStorageData(params.id)
-  const operations = await getOperationsData(params.id)
+  const pageData = getDetailData(params.id)
+  const usageData = getUsageData(params.id)
+  const storageData = getStorageData(params.id)
+  const operationsData = getOperationsData(params.id)
+
+  // Fetch Parallel
+  const [page, usage, storage, operations] = await Promise.all([
+    pageData,
+    usageData,
+    storageData,
+    operationsData,
+  ])
 
   if (!page) {
     notFound()
