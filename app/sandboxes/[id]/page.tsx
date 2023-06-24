@@ -11,6 +11,8 @@ import { SandboxAPI } from '@/lib/sandbox'
 import { getToken } from '@/lib/token'
 import ChartViewSandbox from '@/components/chart-view-sandbox'
 import DetailStatus from '@/components/sandbox-detail-status'
+import OperationsTable from '@/components/table-operations'
+import StorageBar from '@/components/usage-bar'
 
 interface PageProps {
   params: {
@@ -112,8 +114,9 @@ export default async function SandboxDetailPage({ params }: PageProps) {
         <div className="container mx-auto py-10">
           <DetailStatus data={page} />
           <ChartViewSandbox data={usage} />
-          <pre>{JSON.stringify(storage, null, 2)}</pre>
-          <pre>{JSON.stringify(operations, null, 2)}</pre>
+          <StorageBar data={storage?.sharedata} />
+          <StorageBar data={storage?.realmdata} />
+          <OperationsTable data={operations?.data} />
         </div>
       </section>
     </>

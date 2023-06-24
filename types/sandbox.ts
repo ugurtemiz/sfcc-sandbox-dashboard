@@ -81,17 +81,15 @@ export type SandboxUsageResponse = {
   data: SandboxUsageResponseData
 }
 
+export type SandboxStorageValues = {
+  spaceTotal: number
+  spaceUsed: number
+  percentageUsed: number
+}
+
 export type SandboxStorageResponseData = {
-  sharedata: {
-    spaceTotal: number
-    spaceUsed: number
-    percentageUsed: number
-  }
-  realmdata: {
-    spaceTotal: number
-    spaceUsed: number
-    percentageUsed: number
-  }
+  sharedata: SandboxStorageValues
+  realmdata: SandboxStorageValues
 }
 
 export type SandboxStorageResponse = {
