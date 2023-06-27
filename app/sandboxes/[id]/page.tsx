@@ -122,8 +122,8 @@ export default async function SandboxDetailPage({ params }: PageProps) {
         <div className="container mx-auto py-10">
           <DetailStatus data={page} />
           <ChartViewSandbox data={usage} />
-          <StorageBar data={storage?.sharedata} />
-          <StorageBar data={storage?.realmdata} />
+          {storage?.sharedata && <StorageBar data={storage?.sharedata} />}
+          {storage?.realmdata && <StorageBar data={storage?.realmdata} />}
           <OperationsTable data={operations?.data} />
         </div>
       </section>

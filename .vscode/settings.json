@@ -14,6 +14,8 @@
     "lucide",
     "planetscale",
     "clsx",
-    "impex"
+    "impex",
+    "sharedata",
+    "realmdata"
   ]
 }
