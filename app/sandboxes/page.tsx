@@ -1,6 +1,6 @@
 import { OCAPIToken } from '@/types'
 
-import { OCAPI } from '@/lib/ocapi'
+import { SandboxAPI } from '@/lib/sandbox'
 import { getToken } from '@/lib/token'
 
 import { columns } from './columns'
@@ -13,8 +13,8 @@ async function getData() {
     return null
   }
 
-  const ocapiObj = new OCAPI(tokenObj.key)
-  const sandboxes = await ocapiObj.getSandboxes()
+  const sandboxObj = new SandboxAPI(tokenObj.key)
+  const sandboxes = await sandboxObj.getSandboxes()
   const sandboxesWithBMLink = sandboxes.map((element) => {
     return {
       ...element,
