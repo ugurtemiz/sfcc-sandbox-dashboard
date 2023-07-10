@@ -78,4 +78,16 @@ export class SandboxAPI {
     const res: SandboxOperationsResponse = await response.json()
     return res
   }
+
+  async setSandboxState(id: string, operation) {
+    const url = `${this.base_url}/sandboxes/${id}/operations`
+    const header = this.getHeader()
+    header.method = 'POST'
+    header.body = JSON.stringify({
+      operation,
+    })
+    const response = await fetch(url, header)
+    const res = await response.json()
+    return res
+  }
 }

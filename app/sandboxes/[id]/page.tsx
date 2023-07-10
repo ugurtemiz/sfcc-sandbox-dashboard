@@ -110,20 +110,23 @@ export default async function SandboxDetailPage({ params }: PageProps) {
 
   return (
     <>
-      <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
-        <div className="flex max-w-[980px] flex-col items-start gap-2">
+      <section className="grid-col-1 container grid gap-6 pb-8 pt-6 md:grid-cols-2 md:py-10">
+        <div className="flex flex-col items-start gap-2">
           <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl">
             {page.realm.toUpperCase()}
           </h1>
           <h2>{page.instance}</h2>
         </div>
-      </section>
-      <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
-        <div className="container mx-auto py-10">
-          <DetailStatus data={page} />
+        <DetailStatus data={page} />
+        <div className="md:col-span-2">
           <ChartViewSandbox data={usage} />
+        </div>
+        {/* Move to ChartView as tab */}
+        {/* <div>
           {storage?.sharedata && <StorageBar data={storage?.sharedata} />}
           {storage?.realmdata && <StorageBar data={storage?.realmdata} />}
+        </div> */}
+        <div className="md:col-span-2">
           <OperationsTable data={operations?.data} />
         </div>
       </section>
