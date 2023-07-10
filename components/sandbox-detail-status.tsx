@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { CalendarCheck, ChevronDown, ExternalLink, Pause } from 'lucide-react'
+import { CalendarCheck, ChevronDown, ExternalLink } from 'lucide-react'
 
 import { SandboxDetailResponseData } from '@/types/sandbox'
 import { Button } from '@/components/ui/button'
@@ -22,6 +22,7 @@ import {
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { Switch } from '@/components/ui/switch'
+import StateSwitch from '@/components/state-switch'
 
 import { Badge } from './ui/badge'
 
@@ -31,7 +32,7 @@ export default function DetailStatus({
   data: SandboxDetailResponseData
 }) {
   return (
-    <Card className="max-w-[50%]">
+    <Card>
       <CardHeader className="grid grid-cols-[1fr_110px] items-start gap-4 space-y-0">
         <div className="space-y-1">
           <CardTitle>
@@ -101,19 +102,7 @@ export default function DetailStatus({
       </CardHeader>
       <CardContent className="grid gap-1 p-1.5">
         <div className="flex items-center space-x-4 rounded-md p-2 hover:bg-accent hover:text-accent-foreground">
-          <Pause className="h-5 w-5" />
-          <Label htmlFor="state" className="flex grow flex-col space-y-1">
-            <span>State</span>
-            <span className="font-normal leading-snug text-muted-foreground">
-              Shows the sandbox active or not
-            </span>
-          </Label>
-          <Switch
-            id="state"
-            checked={data.state == 'started' ? true : false}
-            disabled
-            aria-readonly
-          />
+          <StateSwitch state={data.state} sandboxId={data.id} />
         </div>
         <div className="flex items-center space-x-4 rounded-md p-2  hover:bg-accent hover:text-accent-foreground">
           <CalendarCheck className="h-5 w-5" />

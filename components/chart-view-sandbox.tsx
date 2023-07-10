@@ -40,7 +40,7 @@ export default function ChartViewSandbox({ data }) {
   }
 
   return (
-    <>
+    <div>
       <div className="justify-between md:flex">
         <div>
           <Flex
@@ -78,6 +78,6 @@ export default function ChartViewSandbox({ data }) {
           showYAxis={false}
         />
       </div>
-    </>
+    </div>
   )
 }
