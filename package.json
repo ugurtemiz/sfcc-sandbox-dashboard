@@ -13,7 +13,9 @@
     "format:write": "prettier --write \"**/*.{ts,tsx,mdx}\" --cache",
     "format:check": "prettier --check \"**/*.{ts,tsx,mdx}\" --cache",
     "createTables": "tsx seed/createTables.ts",
-    "seed": "tsx seed/seed.ts"
+    "seed": "tsx seed/seed.ts",
+    "op:seed": "op run --env-file=\"./.env\" -- npm run seed",
+    "op:dev": "op run --env-file=\"./.env\" -- npm run dev"
   },
   "dependencies": {
     "@heroicons/react": "^1.0.6",
@@ -24,13 +26,14 @@
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-switch": "^1.0.3",
+    "@supabase/supabase-js": "^2.45.6",
     "@tanstack/react-table": "^8.9.2",
     "@tremor/react": "^3.4.1",
     "@upstash/redis": "^1.21.0",
     "class-variance-authority": "^0.4.0",
     "clsx": "^1.2.1",
     "lucide-react": "^0.105.0-alpha.4",
-    "next": "^13.4.9",
+    "next": "^13.5.1",
     "next-themes": "^0.2.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

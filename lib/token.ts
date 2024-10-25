@@ -20,7 +20,7 @@ const authWithSFCC = () => {
 
   return new Promise((resolve, reject) =>
     auth(clientId, clientSecret, (error: any, _token: string) => {
-      console.log(_token)
+      // console.log(_token)
       if (error) reject(error)
       else resolve(_token)
     })
@@ -53,5 +53,6 @@ export async function getTokenForSeed() {
     key: token as string,
     expire: Date.now(),
   }
+  console.log(tokenObj)
   return tokenObj
 }

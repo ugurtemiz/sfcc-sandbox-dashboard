@@ -6,26 +6,16 @@ import { db } from '@/lib/db'
 import { SandboxAPI } from '@/lib/sandbox'
 import { getTokenForSeed } from '@/lib/token'
 
-async function buildParams(data: RealmUsageResponseData, date: string) {
-  const { id, minutesUpByProfile, ...otherProps } = data
+async function buildQuery(data: RealmUsageResponseData, date: string) {
+
+  const { id, granularUsage, ...otherProps } = data
 
   const obj = {
     date,
-    minutesUpByProfile: JSON.stringify(minutesUpByProfile),
     ...otherProps,
   }
 
-  const column_names = Object.keys(obj)
-
-  const query =
-    `INSERT INTO daily_usage (${column_names.join(',')}) ` +
-    `VALUES (${Array.from({ length: column_names.length }, () => '?')})`
-  const value = Object.values(obj)
-
-  return {
-    query,
-    value,
-  }
+  return obj;
 }
 
 async function getUsage(tokenObj: OCAPIToken, from: string, to: string) {
@@ -39,10 +29,13 @@ async function getUsage(tokenObj: OCAPIToken, from: string, to: string) {
     to
   )
 
-  const params = await buildParams(usageData, from)
-  console.log(params)
-  const result = await db.execute(params.query, params.value)
-  console.log(result)
+  const query = await buildQuery(usageData, from)
+  const {data, error} = await db.from('daily_usage').insert(query)
+  if (error) {
+    console.error('Error inserting rows:', error);
+  } else {
+    console.log('Rows inserted successfully:', data);
+  }
 }
 
 function getDateString(date: Date) {

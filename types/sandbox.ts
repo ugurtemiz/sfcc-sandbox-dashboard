@@ -41,14 +41,13 @@ export type RealmUsageResponseData = {
   activeSandboxes: number
   deletedSandboxes: number
   sandboxSeconds: number
-  minutesUpByProfile: [
-    {
+  minutesUpByProfile: {
       profile: string
       minutes: number
-    }
-  ]
+    }[]
   minutesUp: number
-  minutesDown: number
+  minutesDown: number,
+  granularUsage: any
 }
 
 export type RealmUsageResponse = {
