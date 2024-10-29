@@ -14,10 +14,23 @@ Upstash is used for caching the OCAPI Token in Redis.
 
 ### Planetscale
 
-- Create an account in [Planetscale](https://planetscale.com/) and create a database.
+- Create an account in [Supabase](https://supabase.com/) and create a database.
 - Fill `.env.example` file
 - Fill `config.ts` (especially `from` & `to` dates)
-- Run `npm run createTables`
+- Create table with below SQL Command
+```sql
+CREATE TABLE daily_usage (
+    id SERIAL PRIMARY KEY,
+    date DATE NOT NULL UNIQUE,
+    "createdSandboxes" INT NOT NULL,
+    "activeSandboxes" INT NOT NULL,
+    "deletedSandboxes" INT NOT NULL,
+    "sandboxSeconds" INT NOT NULL,
+    "minutesUpByProfile" JSON,
+    "minutesUp" INT NOT NULL,
+    "minutesDown" INT NOT NULL
+  );
+```
 - Run `npm run seed` (This might take so long.)
 
 When the seed script is running, Run the development server:
