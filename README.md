@@ -12,7 +12,7 @@ Upstash is used for caching the OCAPI Token in Redis.
 - Create an account in [Upstash](https://www.upstash.com/) and create a database.
 - Fill `.env` file via referring `.env.example` file
 
-### Planetscale
+### Supabase
 
 - Create an account in [Supabase](https://supabase.com/) and create a database.
 - Fill `.env.example` file
